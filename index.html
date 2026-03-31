@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Política de Privacidade — Sudoku Evolution</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0f0f13;
+      --surface: #17171e;
+      --border: #2a2a38;
+      --accent: #7c6af7;
+      --accent-soft: rgba(124, 106, 247, 0.12);
+      --text: #e8e8f0;
+      --muted: #8888a4;
+      --white: #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      line-height: 1.8;
+      min-height: 100vh;
+    }
+
+    /* Background grid pattern */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 64px 24px 96px;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .logo-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent);
+      margin-bottom: 24px;
+    }
+
+    .logo-mark svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .app-name {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: var(--white);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .app-name span {
+      color: var(--accent);
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .divider {
+      width: 48px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      margin: 32px auto;
+      border-radius: 2px;
+    }
+
+    /* Sections */
+    section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px;
+      margin-bottom: 20px;
+      transition: border-color 0.2s;
+    }
+
+    section:hover {
+      border-color: var(--accent);
+    }
+
+    .section-number {
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 1.35rem;
+      color: var(--white);
+      letter-spacing: -0.01em;
+      margin-bottom: 16px;
+    }
+
+    p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+    }
+
+    p:last-child { margin-bottom: 0; }
+
+    ul {
+      list-style: none;
+      margin: 12px 0;
+    }
+
+    ul li {
+      position: relative;
+      padding-left: 20px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+    }
+
+    ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* Highlight box */
+    .highlight {
+      background: var(--accent-soft);
+      border: 1px solid rgba(124, 106, 247, 0.3);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-top: 16px;
+    }
+
+    .highlight p {
+      margin: 0;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+
+    /* Contact */
+    .contact-link {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .contact-link:hover {
+      border-color: var(--accent);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 48px;
+    }
+
+    .date-badge {
+      display: inline-block;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 8px 20px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    .footer-note {
+      margin-top: 16px;
+      font-size: 0.8rem;
+      color: var(--border);
+    }
+
+    @media (max-width: 600px) {
+      section { padding: 24px 20px; }
+      .container { padding: 40px 16px 64px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <div class="logo-mark">
+        <!-- Sudoku grid icon -->
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="8" height="8" rx="1.5" fill="#7c6af7" opacity="0.9"/>
+          <rect x="12" y="2" width="8" height="8" rx="1.5" fill="#7c6af7" opacity="0.5"/>
+          <rect x="22" y="2" width="8" height="8" rx="1.5" fill="#7c6af7" opacity="0.9"/>
+          <rect x="2" y="12" width="8" height="8" rx="1.5" fill="#7c6af7" opacity="0.5"/>
+          <rect x="12" y="12" width="8" height="8" rx="1.5" fill="#7c6af7" opacity="1"/>
+          <rect x="22" y="12" width="8" height="8" rx="1.5" fill="#7c6af7" opacity="0.5"/>
+          <rect x="2" y="22" width="8" height="8" rx="1.5" fill="#7c6af7" opacity="0.9"/>
+          <rect x="12" y="22" width="8" height="8" rx="1.5" fill="#7c6af7" opacity="0.5"/>
+          <rect x="22" y="22" width="8" height="8" rx="1.5" fill="#7c6af7" opacity="0.9"/>
+        </svg>
+      </div>
+      <h1 class="app-name">Sudoku <span>Evolution</span></h1>
+      <p class="subtitle">Política de Privacidade</p>
+      <div class="divider"></div>
+    </header>
+
+    <!-- Intro -->
+    <section>
+      <div class="section-number">Introdução</div>
+      <h2>Seu jogo, sua privacidade</h2>
+      <p>
+        Esta Política de Privacidade descreve como o aplicativo <strong>Sudoku Evolution</strong>,
+        desenvolvido por <strong>Nave8</strong>, coleta, usa e protege as informações
+        dos usuários. Ao utilizar o app, você concorda com os termos descritos neste documento.
+      </p>
+      <div class="highlight">
+        <p>
+          🔒 <strong>Resumo simples:</strong> Não coletamos nome, e-mail, telefone ou qualquer
+          dado pessoal identificável. Seu progresso é salvo de forma anônima e segura.
+        </p>
+      </div>
+    </section>
+
+    <!-- Dados coletados -->
+    <section>
+      <div class="section-number">01</div>
+      <h2>Dados Coletados</h2>
+      <p>O Sudoku Evolution coleta apenas os dados estritamente necessários para o funcionamento do aplicativo:</p>
+      <ul>
+        <li><strong>Identificador anônimo de usuário</strong> — gerado automaticamente pelo Firebase Authentication, sem qualquer informação pessoal associada</li>
+        <li><strong>Progresso de jogo</strong> — nível, XP, streaks, histórico de partidas e configurações salvas no Firestore</li>
+        <li><strong>Dados de uso anônimos</strong> — eventos de navegação e interação coletados pelo Firebase Analytics para fins de melhoria do app</li>
+        <li><strong>Versão do app e plataforma</strong> — utilizados para controle de atualizações via Firebase Remote Config</li>
+      </ul>
+    </section>
+
+    <!-- Como usamos -->
+    <section>
+      <div class="section-number">02</div>
+      <h2>Como Usamos os Dados</h2>
+      <p>Os dados coletados são utilizados exclusivamente para:</p>
+      <ul>
+        <li>Salvar e sincronizar seu progresso de jogo entre sessões</li>
+        <li>Calcular streaks, XP e histórico do Desafio Diário</li>
+        <li>Exibir notificações de lembrete (configuráveis pelo usuário)</li>
+        <li>Garantir que você está usando uma versão atualizada e segura do app</li>
+        <li>Analisar de forma agregada e anônima como o app é utilizado, para melhorar a experiência</li>
+      </ul>
+    </section>
+
+    <!-- Autenticação anônima -->
+    <section>
+      <div class="section-number">03</div>
+      <h2>Autenticação Anônima</h2>
+      <p>
+        O Sudoku Evolution utiliza o <strong>Firebase Authentication</strong> com autenticação anônima.
+        Isso significa que você não precisa criar uma conta, fornecer e-mail ou senha.
+      </p>
+      <p>
+        Um identificador único e aleatório é gerado automaticamente para armazenar seu progresso.
+        Este identificador <strong>não contém nenhum dado pessoal</strong> e não pode ser
+        utilizado para identificar você como pessoa.
+      </p>
+      <div class="highlight">
+        <p>
+          ⚠️ <strong>Atenção:</strong> Como a autenticação é anônima, desinstalar o aplicativo
+          apaga o vínculo com seu progresso. Atualizações do app preservam seus dados normalmente.
+        </p>
+      </div>
+    </section>
+
+    <!-- Compartilhamento -->
+    <section>
+      <div class="section-number">04</div>
+      <h2>Compartilhamento de Dados</h2>
+      <p>
+        <strong>Não vendemos, alugamos ou compartilhamos seus dados com terceiros</strong>
+        para fins comerciais ou publicitários.
+      </p>
+      <p>Os dados são processados pelos seguintes serviços do Google Firebase, sujeitos à
+        <a href="https://policies.google.com/privacy" class="contact-link" target="_blank">
+          Política de Privacidade do Google
+        </a>:
+      </p>
+      <ul>
+        <li><strong>Firebase Authentication</strong> — identificação anônima</li>
+        <li><strong>Cloud Firestore</strong> — armazenamento do progresso</li>
+        <li><strong>Firebase Analytics</strong> — análise de uso anônima</li>
+        <li><strong>Firebase Remote Config</strong> — controle de versões</li>
+      </ul>
+    </section>
+
+    <!-- Notificações -->
+    <section>
+      <div class="section-number">05</div>
+      <h2>Notificações</h2>
+      <p>
+        O aplicativo pode enviar <strong>notificações locais</strong> para lembrá-lo de
+        jogar o Desafio Diário e manter seu streak ativo. Estas notificações são geradas
+        no próprio dispositivo e <strong>não envolvem servidores externos</strong>.
+      </p>
+      <p>
+        Você pode desativar as notificações a qualquer momento nas configurações do
+        seu dispositivo Android.
+      </p>
+    </section>
+
+    <!-- Retenção -->
+    <section>
+      <div class="section-number">06</div>
+      <h2>Retenção e Exclusão de Dados</h2>
+      <p>
+        Seus dados de progresso são armazenados enquanto você utilizar o aplicativo.
+        Para solicitar a exclusão completa dos seus dados, entre em contato conosco
+        pelo e-mail abaixo e processaremos sua solicitação em até <strong>30 dias</strong>.
+      </p>
+    </section>
+
+    <!-- Crianças -->
+    <section>
+      <div class="section-number">07</div>
+      <h2>Crianças e Menores de Idade</h2>
+      <p>
+        O Sudoku Evolution não é direcionado a crianças menores de 13 anos e não coleta
+        intencionalmente dados de menores. Se você acredita que um menor forneceu dados
+        ao app, entre em contato conosco para que possamos removê-los.
+      </p>
+    </section>
+
+    <!-- Alterações -->
+    <section>
+      <div class="section-number">08</div>
+      <h2>Alterações nesta Política</h2>
+      <p>
+        Podemos atualizar esta Política de Privacidade periodicamente. Quando houver
+        mudanças significativas, atualizaremos a data de revisão abaixo e, se necessário,
+        notificaremos os usuários através do aplicativo.
+      </p>
+      <p>
+        Recomendamos que você revise esta página ocasionalmente para se manter informado.
+      </p>
+    </section>
+
+    <!-- Contato -->
+    <section>
+      <div class="section-number">09</div>
+      <h2>Contato</h2>
+      <p>
+        Dúvidas, solicitações de exclusão de dados ou qualquer questão relacionada à
+        privacidade podem ser enviadas para:
+      </p>
+      <div class="highlight">
+        <p>
+          📧 <a href="mailto:app@nave8.com.br" class="contact-link">app@nave8.com.br</a><br/>
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      <div class="date-badge">Última atualização: Março de 2026</div>
+      <p class="footer-note">Sudoku Evolution · Nave8 · Todos os direitos reservados</p>
+    </footer>
+
+  </div>
+</body>
+</html>
